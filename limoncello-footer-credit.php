@@ -26,8 +26,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-
-
 class Lmnc_Footer_Credit {
     public function __construct() {
         $this->add_hooks();
@@ -47,5 +45,4 @@ class Lmnc_Footer_Credit {
         EOT;
     }
 }
-
 new Lmnc_Footer_Credit();
