@@ -1,11 +1,11 @@
 <?php 
 /**
  * Plugin Name: Limoncello Footer Credit
- * Plugin URI: http://limoncello.design/
+ * Plugin URI: https://limoncello.design/
  * Description: Adds credits to site footer
  * Version: 1.0.0
  * Author: Doron Nissim Eliav
- * Author URI: http://limoncello.design/
+ * Author URI: https://limoncello.design/
  * License:  GPL2
  */
  
@@ -33,10 +33,23 @@ class Lmnc_Footer_Credit {
     public function add_hooks() {
         add_action('wp_footer',[$this,'add_footer_credit'], 9999);
     }
+    private function set_url_params() {
+        $url = 'https://limoncello.design/';
+        $params = [
+            'utm_source' =>preg_replace('/^https?:\/\//','',$_SERVER['HTTP_HOST']),
+            'utm_medium' => 'credit',
+            'utm_campaign' => 'limoncello-footer-credit',
+            'utm_content' => 'limoncello-footer-credit',
+            'utm_term' => 'limoncello-footer-credit'
+        ];
+        $url .= '?' . http_build_query($params);
+        return $url;
+    }
     public function add_footer_credit () {
+        $url = $this->set_url_params();
         echo <<<EOT
         <div style="background-color: #000; text-align: center;" class="lmclo-footer-credit">
-            <a class="lmclo-footer-credit__link" style="display: inline-block; border: none;outline: none;" target="_blank" href="https://limoncello.design/" title="limoncello.design"> 
+            <a rel="nofollow" class="lmclo-footer-credit__link" style="display: inline-block; border: none;outline: none;" target="_blank" href="$url" title="limoncello.design"> 
                 <p style="margin: 0;text-align: center;line-height: 1.5;font-size: 12px;padding: 7px 0;color: #fff;" class="lmclo-footer-credit__text">
                     Designed and developed with <span style="max-width:25px">🍋</span> by limoncello.design
                 </p>
